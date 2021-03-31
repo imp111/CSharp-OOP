@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Homework2
+namespace Homework2_version1
 {
     public enum MaleAverageHeight //centimeters
     {
@@ -23,6 +23,9 @@ namespace Homework2
     public class Male
     {
         private string Gender;
+        private string Name;
+        private int Age;
+        private int Height;
 
         public string GenderSet
         {
@@ -30,28 +33,54 @@ namespace Homework2
             set { Gender = "male"; }
         }
 
-        private string Name;
-
         public string NameSet
         {
             get { return Name; }
-            set { Name = value; }
+            set
+            {
+                if (value != "" || value != " ")
+                {
+                    Name = value;
+                }
+                else
+                {
+                    int i = 1;
+                    Name = $"Antonio{i}";
+                    i++;
+                }
+            }
         }
-
-        private int Age;
 
         public int AgeSet
         {
             get { return Age; }
-            set { Age = value; }
+            set
+            {
+                if (value <= 120 && value >= 0)
+                {
+                    Age = value;
+                }
+                else
+                {
+                    Age = 30;
+                }
+            }
         }
-
-        private int Height;
 
         public int HeightSet
         {
             get { return Height; }
-            set { Height = value; }
+            set
+            {
+                if (value <= 270 && value >= 70)
+                {
+                    Height = value;
+                }
+                else
+                {
+                    Height = 170;
+                }
+            }
         }
 
         public Male()
@@ -59,11 +88,33 @@ namespace Homework2
             this.Gender = "male";
         }
 
+        public string EnterName()
+        {
+            Console.Write("Enter Name: ");
+            string name = Console.ReadLine();
+
+            return name;
+        }
+        public int EnterAge()
+        {
+            Console.Write("Enter Age: ");
+            int age = int.Parse(Console.ReadLine());
+
+            return age;
+        }
+        public int EnterHeight()
+        {
+            Console.Write("Enter Height: ");
+            int height = int.Parse(Console.ReadLine());
+
+            return height;
+        }
+
         public Male(string name, int age, int height)
         {
-            this.Name = name;
-            this.Age = age;
-            this.Height = height;
+            this.NameSet = name;
+            this.AgeSet = age;
+            this.HeightSet = height;
         }
 
         public MaleAverageHeight MeassureHeight(int height)
@@ -101,6 +152,31 @@ namespace Homework2
             else
             {
                 return MaleAverageSpeed.Fast;
+            }
+        }
+
+        public void Comparisons(int speed, int height)
+        {
+            Console.Write("Enter measurement | Height | Running speed | end |: ");
+            string measurementChoice = Console.ReadLine().ToLower();
+
+            while (measurementChoice != "end")
+            {
+                if (measurementChoice == "height")
+                {
+                    Console.WriteLine(MeassureHeight(height));
+                }
+                else if (measurementChoice == "running speed")
+                {
+                    Console.WriteLine(MeassureSpeed(speed));
+                }
+                else
+                {
+                    Console.WriteLine("invalid measurement");
+                }
+
+                Console.Write("Enter measurement | Height | Running speed | end |: ");
+                measurementChoice = Console.ReadLine().ToLower();
             }
         }
     }
